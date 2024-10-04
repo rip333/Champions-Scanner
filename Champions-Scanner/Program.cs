@@ -1,8 +1,7 @@
-﻿Console.WriteLine("Enter Prompt:");
-var prompt = Console.ReadLine();
-var openAiService = new OpenAIService();
-var response = await openAiService.AskChatGPT(prompt);
-Console.WriteLine(response);
+﻿// if (args.Length == 0){
+//     Console.WriteLine("No arguments provided.");
+// }
+// var filePath = args[0];
 
-// Next is Vision
-// https://github.com/openai/openai-dotnet/blob/main/examples/Chat/Example05_Vision.cs
+var openAiService = new OpenAIService();
+await openAiService.GetJsonFromAssets();

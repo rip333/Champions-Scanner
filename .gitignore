@@ -398,3 +398,4 @@ PokeFusionBot/published/
 *.webp
 PokeFusionBot/open-ai-secret-key.txt
 /Champions-Scanner/Assets
+/Champions-Scanner/Prompts

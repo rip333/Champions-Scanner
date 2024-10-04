@@ -22,14 +22,43 @@ public class OpenAIService
         // Iterate through each image file and call GetJsonFromCardImage
         foreach (var imageFile in imageFiles)
         {
-            var result = await GetJsonFromCardImage(imageFile);
-            // Save each result as a JSON file
             var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(imageFile);
             var outputFilePath = Path.Combine(assetsFolderPath, $"{fileNameWithoutExtension}.json");
 
-            var trimmedResult = TrimOutsideBraces(result);
-            // Write JSON response to a file
-            await File.WriteAllTextAsync(outputFilePath, trimmedResult);
+            // Check if JSON file already exists and skip processing if it does
+            if (File.Exists(outputFilePath))
+            {
+                Console.WriteLine($"Skipping {imageFile}, JSON file already exists.");
+                continue;
+            }
+
+            // Retry mechanism with a max of 1 retries
+            int maxRetries = 1;
+            int retryCount = 0;
+            bool success = false;
+
+            while (retryCount < maxRetries && !success)
+            {
+                try
+                {
+                    var result = await GetJsonFromCardImage(imageFile);
+
+                    var trimmedResult = TrimOutsideBraces(result);
+                    // Write JSON response to a file
+                    await File.WriteAllTextAsync(outputFilePath, trimmedResult);
+                    success = true;
+                }
+                catch (Exception ex)
+                {
+                    retryCount++;
+                    Console.WriteLine($"Error processing {imageFile}: {ex.Message}. Retry {retryCount} of {maxRetries}.");
+
+                    if (retryCount == maxRetries)
+                    {
+                        Console.WriteLine($"Failed to process {imageFile} after {maxRetries} retries.");
+                    }
+                }
+            }
         }
     }
 

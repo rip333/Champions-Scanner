@@ -25,7 +25,7 @@ public class OpenAIService
             var result = await GetJsonFromCardImage(imageFile);
             // Save each result as a JSON file
             var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(imageFile);
-            var outputFilePath = Path.Combine(assetsFolderPath, $"{fileNameWithoutExtension}_response.json");
+            var outputFilePath = Path.Combine(assetsFolderPath, $"{fileNameWithoutExtension}.json");
 
             var trimmedResult = TrimOutsideBraces(result);
             // Write JSON response to a file

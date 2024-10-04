@@ -1,5 +1,3 @@
-- IMPORTANT! If no text is supplied to you in the <supplied_text></supplied_text> XML tags, then skip everything and respond by ONLY saying what is EXACTLY provided to you in the <error></error> XML tags.  Nothing more.
-
 # You will be given rules, role, supplied_text, good_examples, bad_examples, tasks, task_guidance, and response_format information as XML tags in this prompt. Please prioritize anything marked as important.
 
 # Below are your rules against which you will be measured. Carefully review and internalize the provided instructions. I should generate search clauses using only complete, specific terms and synonyms
